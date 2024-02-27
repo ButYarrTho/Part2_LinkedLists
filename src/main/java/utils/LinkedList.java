@@ -90,4 +90,16 @@ public class LinkedList {
         }
         return -1;
     }
+
+    // Check if the list is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public Song tail() {
+        if (isEmpty()) {
+            return null;
+        }
+        return tail.song;
+    }
 }
