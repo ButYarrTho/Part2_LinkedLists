@@ -11,6 +11,7 @@ public class LinkedList {
     private Node head;
     private Node tail;
     private int size;
+    private final int maxSize;
 
     private class Node {
         Song song;
@@ -27,6 +28,7 @@ public class LinkedList {
         this.head = null;
         this.tail = null;
         this.size = 0;
+        this.maxSize = 100;
     }
 
     //add song to end of list
@@ -34,6 +36,11 @@ public class LinkedList {
         if (song == null) {
             throw new IllegalArgumentException("Song cannot be null.");
         }
+
+        if (size >= maxSize) {
+            throw new IllegalStateException("Cannot add more songs, the list is full.");
+        }
+
 
         Node newNode = new Node(song);
         if (head == null) {
@@ -51,18 +58,9 @@ public class LinkedList {
         return size;
     }
 
-    // Display all songs in list
-    public void display() {
-        Node current = head;
-        while (current != null) {
-            System.out.println(current.song);
-            current = current.next;
-        }
-    }
-
     // Get song at a specific position
     public Song get(int position) {
-        if (position < 0 || position >= size) {
+        if (position < 0 || position > size) {
             throw new IllegalArgumentException("Invalid position.");
         }
 
@@ -101,5 +99,38 @@ public class LinkedList {
             return null;
         }
         return tail.song;
+    }
+
+    public boolean removeAll(Song songToRemove) {
+        if (songToRemove == null) {
+            throw new IllegalArgumentException("Song to remove cannot be null.");
+        }
+
+        boolean removed = false;
+        Node current = head;
+
+        // Handle removal at the beginning of the list
+        while (current != null && current.song.equals(songToRemove)) {
+            head = current.next;
+            current = head;
+            size--;
+            removed = true;
+        }
+
+        // Handle removal in the middle or end of the list
+        while (current != null && current.next != null) {
+            if (current.next.song.equals(songToRemove)) {
+                current.next = current.next.next;
+                if (current.next == null) {
+                    tail = current; // Update tail if the last node was removed
+                }
+                size--;
+                removed = true;
+            } else {
+                current = current.next;
+            }
+        }
+
+        return removed;
     }
 }
