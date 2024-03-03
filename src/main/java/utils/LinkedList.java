@@ -23,7 +23,9 @@ public class LinkedList {
         }
     }
 
-    // Constructor
+    /**
+     * Constructs an empty linked list with a maximum size of 100.
+     */
     public LinkedList() {
         this.head = null;
         this.tail = null;
@@ -31,7 +33,13 @@ public class LinkedList {
         this.maxSize = 100;
     }
 
-    //add song to end of list
+    /**
+     * Adds a song to the end of the list.
+     *
+     * @param song the song to add
+     * @throws IllegalArgumentException if the provided song is null
+     * @throws IllegalStateException    if the list is full (reached its maximum size)
+     */
     public void add(Song song) {
         if (song == null) {
             throw new IllegalArgumentException("Song cannot be null.");
@@ -53,7 +61,11 @@ public class LinkedList {
         size++;
     }
 
-    // Get the size of the list
+    /**
+     * Returns the size of the list.
+     *
+     * @return the size of the list
+     */
     public int size() {
         return size;
     }
@@ -71,7 +83,13 @@ public class LinkedList {
         return current.song;
     }
 
-    // Find index of a song
+    /**
+     * Finds the index of the specified song in the list.
+     *
+     * @param song the song to find
+     * @return the index of the song in the list, or -1 if not found
+     * @throws IllegalArgumentException if the provided song is null
+     */
     public int indexOf(Song song) {
         if (song == null) {
             throw new IllegalArgumentException("Song cannot be null.");
@@ -89,11 +107,20 @@ public class LinkedList {
         return -1;
     }
 
-    // Check if the list is empty
+    /**
+     * Checks whether the list is empty.
+     *
+     * @return true if the list is empty, false otherwise
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Retrieves the song stored in the tail node of the list.
+     *
+     * @return the song stored in the tail node, or null if the list is empty
+     */
     public Song tail() {
         if (isEmpty()) {
             return null;
@@ -101,6 +128,13 @@ public class LinkedList {
         return tail.song;
     }
 
+    /**
+     * Removes all occurrences of the specified song from the list.
+     *
+     * @param songToRemove the song to remove
+     * @return true if at least one occurrence of the song was removed, false otherwise
+     * @throws IllegalArgumentException if the provided song to remove is null
+     */
     public boolean removeAll(Song songToRemove) {
         if (songToRemove == null) {
             throw new IllegalArgumentException("Song to remove cannot be null.");
